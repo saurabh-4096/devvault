@@ -2,10 +2,10 @@
 name = "devvault"
 version = "0.1.0"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["fastapi", "uvicorn"]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest", "httpx"]
 
 [build-system]
 requires = ["setuptools>=61.0"]
