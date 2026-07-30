@@ -1,4 +1,4 @@
-from devvault.database import get_connection, init_db, save_files, search_files, DB_PATH
+from devvault.database import init_db, save_files, search_files
 
 
 def test_search_finds_matching_content(tmp_path, monkeypatch):
@@ -14,7 +14,7 @@ def test_search_finds_matching_content(tmp_path, monkeypatch):
 
     results = search_files("binary search")
     assert len(results) == 1
-    assert "notes.md" in results[0]
+    assert "notes.md" in results[0]["path"]
 
 
 def test_search_returns_empty_for_no_match(tmp_path, monkeypatch):

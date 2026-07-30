@@ -19,8 +19,9 @@ def main():
             print("No results found.")
         else:
             print(f"{len(results)} results found\n")
-            for path in results:
-                print(path)
+            for result in results:
+                print(result["path"])
+                print(f"  {result['preview']}\n")
 
     else:
         print("Usage: devvault index <path>  OR  devvault search <query>")
