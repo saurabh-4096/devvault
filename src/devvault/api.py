@@ -1,9 +1,17 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from devvault.scanner import scan_directory
 from devvault.database import init_db, save_files, count_files, search_files
 
 app = FastAPI()
 init_db()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/health")
