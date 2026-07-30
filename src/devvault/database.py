@@ -68,12 +68,18 @@ def count_files() -> int:
     return count
 
 
-def search_files(query: str, limit: int = 10) -> list[str]:
+def search_files(query: str, limit: int = 10) -> list[dict]:
     conn = get_connection()
     cursor = conn.execute(
-        "SELECT path FROM files_fts WHERE files_fts MATCH ? LIMIT ?",
+        """
+        SELECT path, snippet(files_fts, 1, '[', ']', '...', 8) AS preview
+        FROM files_fts
+        WHERE files_fts MATCH ?
+        ORDER BY rank
+        LIMIT ?
+        """,
         (query, limit),
     )
-    results = [row[0] for row in cursor.fetchall()]
+    results = [{"path": row[0], "preview": row[1]} for row in cursor.fetchall()]
     conn.close()
     return results
